@@ -32,4 +32,4 @@ class DotSampler:
             y = self.__y_generator.normal(*params["y"])
         elif y_distribution == "exponential":
             y = self.__y_generator.exponential(*params["y"])
-        return x, y
+        return np.array([x, y])
