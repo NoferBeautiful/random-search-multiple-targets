@@ -1,11 +1,15 @@
 import numpy as np
+from PyQt6.QtWidgets import QGraphicsItem, QGraphicsEllipseItem
+from PyQt6.QtGui import QPen, QBrush
+from PyQt6.QtCore import Qt
+
 from sampling import DotSampler
 
 
 class Point:
     def __init__(self, x=0, y=0, color='b', sampler=DotSampler(),
                  x_distribution="normal", y_distribution="normal",
-                 sampler_params=None, n_iter=10):
+                 sampler_params=None, speed=10, size=25):
         """
         Point initialization
         :param x: x coordinate
@@ -16,12 +20,26 @@ class Point:
         self.__color = color
         self.__sampler = sampler
         self.__sampler_params = sampler_params
-        self.__n_iter = n_iter
+        self.__speed = speed
         self.__x_distribution = x_distribution
         self.__y_distribution = y_distribution
         self.__i = 0
         self.__to_generate = True
         self.__delta = np.zeros(2, dtype=np.float64)
+        self.__size = size
+        self.__pen = QPen(Qt.GlobalColor.red, 3)
+        self.__brush = QBrush(Qt.GlobalColor.red)
+        self.__n_iter = -1
+
+    def appear(self, canvas):
+        """
+        Places point on screen
+        :param canvas:
+        :return:
+        """
+        self.ell = canvas.addEllipse(*(self.get_point()), self.__size,
+                                self.__size, self.__pen, self.__brush)
+        self.ell.ItemIsMovable = 1
 
     def draw(self, canvas):
         """
@@ -29,7 +47,7 @@ class Point:
         :param canvas:
         :return:
         """
-        pass
+        #canvas.addItem(QGraphicsItem())
 
     def get_point(self):
         """
@@ -54,6 +72,9 @@ class Point:
         else:
             self.__delta = self.__sampler.sample_from(self.__x_distribution,
                                                       self.__y_distribution,
-                                                      self.__sampler_params) / self.__n_iter
+                                                      self.__sampler_params)
+            self.__n_iter = max(np.max(np.ceil(self.__delta / self.__speed)), 1)
+            self.__delta /= self.__n_iter
             self.__point += self.__delta
             self.__i = 1
+        self.ell.moveBy(*(self.__delta))

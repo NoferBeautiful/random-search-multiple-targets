@@ -1,5 +1,6 @@
 import numpy as np
-
+from PyQt6.QtGui import QPen
+from PyQt6.QtCore import Qt
 
 class Grid:
     def __init__(self, width, height, n, m):
@@ -17,6 +18,7 @@ class Grid:
         self.__x_target = np.random.randint(0, n)
         self.__y_target = np.random.randint(0, m)
         self.__is_visited = np.zeros((n, m), dtype=int)
+        self.__pen_grid = QPen(Qt.GlobalColor.gray, 2)
 
     def where_point(self, x, y):
         """
@@ -24,7 +26,7 @@ class Grid:
         :param x: x coordinate
         :param y: y coordinate
         """
-        return int(x / self.__x_delta), int(y / self.__y_delta)
+        return 0, 0#int(x / self.__x_delta), int(y / self.__y_delta)
 
     def check(self, x, y):
         """
@@ -45,7 +47,7 @@ class Grid:
         return 3
 
     def draw(self, canvas):
-        """
-        Draws grid on given canvas
-        """
-        pass
+        for i in self.__x_grid:
+            canvas.addLine(i, 0, i, 500, self.__pen_grid)
+        for i in self.__y_grid:
+            canvas.addLine(0, i, 500, i, self.__pen_grid)
