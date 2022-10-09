@@ -37,6 +37,12 @@ class Point:
         self.__generated = None
         self.__is_generated = None
 
+    def restart(self, x, y, x_distribution, y_distribution, sampler_params):
+        self.__point = np.array([x, y], dtype=np.float64)
+        self.__sampler_params = sampler_params
+        self.__x_distribution = x_distribution
+        self.__y_distribution = y_distribution
+
     def appear(self, canvas):
         """
         Places point on screen
@@ -68,11 +74,11 @@ class Point:
             return self.__generated
         return None
 
-    def change_x_distribution(self, new_x="end"):
+    def change_x_distribution(self, new_x="end", params=None):
         self.__delta[0] = 0
         self.__x_distribution = new_x
 
-    def change_y_distribution(self, new_y="end"):
+    def change_y_distribution(self, new_y="end", params=None):
         self.__delta[1] = 0
         self.__y_distribution = new_y
 

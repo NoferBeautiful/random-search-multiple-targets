@@ -27,6 +27,11 @@ class Grid:
         self.__target_brush = QBrush(Qt.GlobalColor.green)
         self.__visited_brush = QBrush(Qt.GlobalColor.gray)
 
+    def restart(self):
+        self.__x_target = np.random.randint(0, self.__n)
+        self.__y_target = np.random.randint(0, self.__m)
+        self.__is_visited = np.zeros((self.__n, self.__m), dtype=int)
+
     def where_point(self, x, y):
         """
         Returns position of given dot in the grid

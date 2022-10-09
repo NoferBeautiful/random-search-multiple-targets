@@ -6,6 +6,7 @@ import sys
 
 from grid import Grid
 from point import Point
+from searcher import Searcher
 import env
 
 
@@ -31,19 +32,26 @@ class UI:
         self.y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
         self.grid = Grid(env.SCENE_RIGHT, env.SCENE_TOP, env.GRID_WIDTH, env.GRID_HEIGHT)
         self.point = Point(self.x, self.y, (env.SCENE_LEFT, env.SCENE_RIGHT),
-                      (env.SCENE_BOTTOM, env.SCENE_TOP),
-                      x_distribution="normal", y_distribution="normal",
-                      sampler_params={"x": [0, 10], "y": [0, 10]},
-                      size=env.POINT_SIZE)
-
+                           (env.SCENE_BOTTOM, env.SCENE_TOP),
+                           x_distribution="normal", y_distribution="normal",
+                           sampler_params={"x": [0, 10], "y": [0, 10]},
+                           size=env.POINT_SIZE)
+        self.searcher = Searcher(self.point, self.grid, self.scene, self)
         self.timer = QTimer()
+        self.timer.timeout.connect(self.searcher.search)
 
     def start_exe(self):
         self.window.show()
         self.app.exec()
 
     def launch(self):
-        self.scene.clear() #добавить restart
+        self.scene.clear()
+        self.x = np.random.randint(env.SCENE_LEFT, env.SCENE_RIGHT)
+        self.y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
+        self.point.restart(self.x, self.y, x_distribution="normal", y_distribution="normal",
+                           sampler_params={"x": [0, 10], "y": [0, 10]})
+        self.grid.restart()
+        self.searcher.restart()
         self.point.appear(self.scene)
         self.grid.draw(self.scene)
         self.point.draw(self.scene)
