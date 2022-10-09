@@ -59,8 +59,10 @@ class UI:
 
     def pause(self):
         if self.timer.isActive():
+            self.pauseButton.setText('RESUME')
             self.timer.stop()
         else:
+            self.pauseButton.setText('PAUSE')
             self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
 
     def change_speed(self):
