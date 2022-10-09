@@ -46,6 +46,7 @@ class Point:
         self.ell = canvas.addEllipse(*(self.get_point()), self.__size,
                                      self.__size, self.__pen, self.__brush)
         self.ell.ItemIsMovable = True
+        self.ell.IsSelectable = True
         self.ell.setZValue(1)
 
     def draw(self, canvas):

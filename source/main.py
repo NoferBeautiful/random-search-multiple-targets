@@ -35,11 +35,7 @@ class Searcher:
 
 app = QApplication(sys.argv)
 window = uic.loadUi("../wdw.ui")
-
 view = window.scene
-
-startButton = window.startButton
-
 scene = QGraphicsScene()
 
 grid = Grid(env.SCENE_RIGHT, env.SCENE_TOP, env.GRID_WIDTH, env.GRID_HEIGHT)
@@ -51,18 +47,25 @@ point = Point(x, y, (env.SCENE_LEFT, env.SCENE_RIGHT),
               sampler_params={"x": [0, 10], "y": [0, 10]},
               size=env.POINT_SIZE)
 
-point.appear(scene)
-grid.draw(scene)
-point.draw(scene)
-
-searcher = Searcher(point, grid, scene)
+startButton = window.startButton
+pauseButton = window.pauseButton
 
 view.setSceneRect(env.SCENE_LEFT, env.SCENE_BOTTOM, env.SCENE_RIGHT, env.SCENE_TOP)
 view.setScene(scene)
 
+searcher = Searcher(point, grid, scene)
+
 timer = QTimer()
 timer.timeout.connect(searcher.search)
-timer.start(10)
+
+def launch():
+    point.appear(scene)
+    grid.draw(scene)
+    point.draw(scene)
+    timer.start(20)
+
+launch()
+
 
 window.show()
 
