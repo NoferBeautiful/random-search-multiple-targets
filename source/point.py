@@ -96,9 +96,9 @@ class Point:
         else:
             self.__is_generated = True
             self.__generated = self.__sampler.sample_from(self.__x_distribution,
-                                                      self.__y_distribution,
-                                                      self.__sampler_params)
-            self.__n_iter = max(np.max(np.ceil(np.abs(self.__delta) / self.__speed)), 1)
+                                                          self.__y_distribution,
+                                                          self.__sampler_params)
+            self.__n_iter = max(np.max(np.ceil(np.abs(self.__generated) / self.__speed)), 1)
             self.__delta = self.__generated / self.__n_iter
             self.__i = 0
             self.update_position()
