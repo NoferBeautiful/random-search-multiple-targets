@@ -1,37 +1,40 @@
-from PyQt6.QtWidgets import QApplication, QWidget, QGraphicsScene, QGraphicsItem
+from PyQt6.QtWidgets import QApplication, QGraphicsScene
 from PyQt6 import uic
-from PyQt6.QtGui import QBrush, QColor, QPen
-from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import QTimer
 import sys
-
+import numpy as np
 
 from grid import Grid
 from point import Point
+import env
 
 
-def search(point, grid, canvas=None):
-    point.move()
-    found_x = False
-    found_y = False
-    """
-    while True:
-        check = grid.check(*point.get_point())
-        if check == 3:
-            break
-        elif check == 2 and not found_y:
-            point.change_y_distribution("end")
-            found_y = True
-        elif check == 3 and not found_x:
-            point.change_x_distribution("end")
-            found_x = True
+class Searcher:
+    def __init__(self, point, grid, scene):
+        self.__point = point
+        self.__grid = grid
+        self.__scene = scene
+        self.__found_x = False
+        self.__found_y = False
+
+    def end(self):
+        exit(0)
+
+    def search(self):
         point.move()
-        print(1)
-    """
+        check = grid.check(*point.get_point(), self.__scene)
+        if check == 3:
+            self.end()
+        elif check == 2 and not self.__found_y:
+            point.change_y_distribution("end")
+            self.__found_y = True
+        elif check == 3 and not self.__found_x:
+            point.change_x_distribution("end")
+            self.__found_x = True
 
 
 app = QApplication(sys.argv)
 window = uic.loadUi("../wdw.ui")
-
 
 view = window.scene
 
@@ -39,22 +42,28 @@ startButton = window.startButton
 
 scene = QGraphicsScene()
 
-point = Point()
-point.appear(scene)
-grid = Grid(500, 500, 10, 10)
+grid = Grid(env.SCENE_RIGHT, env.SCENE_TOP, env.GRID_WIDTH, env.GRID_HEIGHT)
+x = np.random.randint(env.SCENE_LEFT, env.SCENE_RIGHT)
+y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
+point = Point(x, y, (env.SCENE_LEFT, env.SCENE_RIGHT),
+              (env.SCENE_BOTTOM, env.SCENE_TOP),
+              x_distribution="normal", y_distribution="normal",
+              sampler_params={"x": [0, 10], "y": [0, 10]},
+              size=env.POINT_SIZE)
 
+point.appear(scene)
 grid.draw(scene)
 point.draw(scene)
 
-view.setSceneRect(0, 0, 500, 500)
+searcher = Searcher(point, grid, scene)
+
+view.setSceneRect(env.SCENE_LEFT, env.SCENE_BOTTOM, env.SCENE_RIGHT, env.SCENE_TOP)
 view.setScene(scene)
 
 timer = QTimer()
-timer.timeout.connect(point.move)
+timer.timeout.connect(searcher.search)
 timer.start(10)
 
 window.show()
 
 app.exec()
-
-#search(point, grid)

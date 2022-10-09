@@ -7,9 +7,9 @@ from sampling import DotSampler
 
 
 class Point:
-    def __init__(self, x=0, y=0, color='b', sampler=DotSampler(),
+    def __init__(self, x, y, x_limits, y_limits, color='b', sampler=DotSampler(),
                  x_distribution="normal", y_distribution="normal",
-                 sampler_params=None, speed=10, size=25):
+                 sampler_params=None, speed=1, size=25):
         """
         Point initialization
         :param x: x coordinate
@@ -17,6 +17,9 @@ class Point:
         :param color: color of the point
         """
         self.__point = np.array([x, y], dtype=np.float64)
+        delta = 1.1 * size
+        self.__x_limits = (x_limits[0] + delta, x_limits[1] - delta)
+        self.__y_limits = (y_limits[0] + delta, y_limits[1] - delta)
         self.__color = color
         self.__sampler = sampler
         self.__sampler_params = sampler_params
@@ -30,6 +33,7 @@ class Point:
         self.__pen = QPen(Qt.GlobalColor.red, 3)
         self.__brush = QBrush(Qt.GlobalColor.red)
         self.__n_iter = -1
+        self.ell = None
 
     def appear(self, canvas):
         """
@@ -38,8 +42,9 @@ class Point:
         :return:
         """
         self.ell = canvas.addEllipse(*(self.get_point()), self.__size,
-                                self.__size, self.__pen, self.__brush)
-        self.ell.ItemIsMovable = 1
+                                     self.__size, self.__pen, self.__brush)
+        self.ell.ItemIsMovable = True
+        self.ell.setZValue(1)
 
     def draw(self, canvas):
         """
@@ -47,7 +52,7 @@ class Point:
         :param canvas:
         :return:
         """
-        #canvas.addItem(QGraphicsItem())
+        # canvas.addItem(QGraphicsItem())
 
     def get_point(self):
         """
@@ -61,20 +66,28 @@ class Point:
     def change_y_distribution(self, new_y="end"):
         self.__y_distribution = new_y
 
+    def update_position(self):
+        new_pos = self.__point + self.__delta
+        if new_pos[0] >= self.__x_limits[1] or new_pos[0] < self.__x_limits[0]:
+            self.__delta[0] *= -1
+        if new_pos[1] >= self.__y_limits[1] or new_pos[1] < self.__y_limits[0]:
+            self.__delta[1] *= -1
+        self.__point += self.__delta
+        self.__i += 1
+
     def move(self):
         """
         Moves dot to random direction
         :return:
         """
         if self.__i < self.__n_iter:
-            self.__point += self.__delta
-            self.__i += 1
+            self.update_position()
         else:
             self.__delta = self.__sampler.sample_from(self.__x_distribution,
                                                       self.__y_distribution,
                                                       self.__sampler_params)
-            self.__n_iter = max(np.max(np.ceil(self.__delta / self.__speed)), 1)
+            self.__n_iter = max(np.max(np.ceil(np.abs(self.__delta) / self.__speed)), 1)
             self.__delta /= self.__n_iter
-            self.__point += self.__delta
-            self.__i = 1
-        self.ell.moveBy(*(self.__delta))
+            self.__i = 0
+            self.update_position()
+        self.ell.moveBy(*self.__delta)
