@@ -21,15 +21,15 @@ class Searcher:
         exit(0)
 
     def search(self):
-        point.move()
+        self.__point.move()
         check = grid.check(*point.get_point(), self.__scene)
         if check == 3:
             self.end()
         elif check == 2 and not self.__found_y:
-            point.change_y_distribution("end")
+            self.__point.change_y_distribution("end")
             self.__found_y = True
         elif check == 3 and not self.__found_x:
-            point.change_x_distribution("end")
+            self.__point.change_x_distribution("end")
             self.__found_x = True
 
 

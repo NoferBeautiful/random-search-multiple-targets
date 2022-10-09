@@ -34,6 +34,8 @@ class Point:
         self.__brush = QBrush(Qt.GlobalColor.red)
         self.__n_iter = -1
         self.ell = None
+        self.__generated = None
+        self.__is_generated = None
 
     def appear(self, canvas):
         """
@@ -60,10 +62,17 @@ class Point:
         """
         return self.__point[0], self.__point[1]
 
+    def get_generated(self):
+        if self.__is_generated:
+            return self.__generated
+        return None
+
     def change_x_distribution(self, new_x="end"):
+        self.__delta[0] = 0
         self.__x_distribution = new_x
 
     def change_y_distribution(self, new_y="end"):
+        self.__delta[1] = 0
         self.__y_distribution = new_y
 
     def update_position(self):
@@ -82,12 +91,14 @@ class Point:
         """
         if self.__i < self.__n_iter:
             self.update_position()
+            self.__is_generated = False
         else:
-            self.__delta = self.__sampler.sample_from(self.__x_distribution,
+            self.__is_generated = True
+            self.__generated = self.__sampler.sample_from(self.__x_distribution,
                                                       self.__y_distribution,
                                                       self.__sampler_params)
             self.__n_iter = max(np.max(np.ceil(np.abs(self.__delta) / self.__speed)), 1)
-            self.__delta /= self.__n_iter
+            self.__delta = self.__generated / self.__n_iter
             self.__i = 0
             self.update_position()
         self.ell.moveBy(*self.__delta)
