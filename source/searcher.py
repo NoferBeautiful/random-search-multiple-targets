@@ -6,6 +6,8 @@ class Searcher:
         self.__found_x = False
         self.__found_y = False
         self.__UI = UI
+        self.__searchFull = 1
+        self.__agents = 1
 
     def restart(self):
         self.__found_x = False
@@ -13,6 +15,19 @@ class Searcher:
 
     def end(self):
         self.__UI.pause()
+
+    def change_search_type(self):#######################################################################################
+        if self.__searchFull:
+            self.__searchFull = 0
+        else:
+            self.__searchFull = 1
+        print(self.__searchFull)
+
+    def change_agents_count(self, n):#######################################################################################
+        print(n)
+
+    def change_targets_count(self, n):#######################################################################################
+        print(n)
 
     def search(self):
         self.__point.move()

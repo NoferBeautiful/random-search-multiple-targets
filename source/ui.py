@@ -1,13 +1,16 @@
-from PyQt6.QtWidgets import QApplication, QGraphicsScene, QSlider
-from PyQt6.QtCore import QTimer
+from PyQt6.QtWidgets import QApplication, QGraphicsScene, QSlider, QDockWidget
+from PyQt6.QtCore import QTimer, Qt
 from PyQt6 import uic
 import numpy as np
 import sys
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from matplotlib.figure import Figure
 
 from grid import Grid
 from point import Point
 from searcher import Searcher
 import env
+from plot import MplCanvas
 
 
 class UI:
@@ -23,10 +26,9 @@ class UI:
         self.startButton = self.window.startButton
         self.pauseButton = self.window.pauseButton
         self.speedSlider = self.window.speedSlider
-
-        self.startButton.clicked.connect(self.launch)
-        self.pauseButton.clicked.connect(self.pause)
-        self.speedSlider.valueChanged.connect(self.change_speed)
+        self.checkBoxSearchSimple = self.window.checkBoxSearchSimple
+        self.spinBoxAgentsCount = self.window.spinBoxAgentsCount
+        self.spinBoxTargetsCount = self.window.spinBoxTargetsCount
 
         self.x = np.random.randint(env.SCENE_LEFT, env.SCENE_RIGHT)
         self.y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
@@ -39,6 +41,17 @@ class UI:
         self.searcher = Searcher(self.point, self.grid, self.scene, self)
         self.timer = QTimer()
         self.timer.timeout.connect(self.searcher.search)
+
+        self.startButton.clicked.connect(self.launch)
+        self.pauseButton.clicked.connect(self.pause)
+        self.speedSlider.valueChanged.connect(self.change_speed)
+        self.checkBoxSearchSimple.stateChanged.connect(self.searcher.change_search_type)
+        self.spinBoxAgentsCount.valueChanged.connect(lambda : self.searcher.change_agents_count(self.spinBoxAgentsCount.value()))
+        self.spinBoxTargetsCount.valueChanged.connect(lambda : self.searcher.change_targets_count(self.spinBoxTargetsCount.value()))
+
+        sc = MplCanvas(self, width=5, height=4, dpi=100)
+        sc.axes.plot([0, 1, 2, 3, 4], [10, 1, 20, 3, 40])
+        #self.window.addDockWidget(Qt.DockWidgetArea.BottomDockWidgetArea, sc)
 
     def start_exe(self):
         self.window.show()
@@ -56,6 +69,12 @@ class UI:
         self.grid.draw(self.scene)
         self.point.draw(self.scene)
         self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
+
+        self.reset_settings()
+
+    def reset_settings(self):
+        self.pauseButton.setText('PAUSE')
+        self.checkBoxSearchSimple.setChecked(1)
 
     def pause(self):
         if self.timer.isActive():
