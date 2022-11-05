@@ -58,18 +58,8 @@ class UI:
         self.app.exec()
 
     def launch(self):
-        self.scene.clear()
-        self.x = np.random.randint(env.SCENE_LEFT, env.SCENE_RIGHT)
-        self.y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
-        self.point.restart(self.x, self.y, x_distribution="normal", y_distribution="normal",
-                           sampler_params={"x": [0, 10], "y": [0, 10]})
-        self.grid.restart()
         self.searcher.restart()
-        self.point.appear(self.scene)
-        self.grid.draw(self.scene)
-        self.point.draw(self.scene)
         self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
-
         self.reset_settings()
 
     def reset_settings(self):
@@ -83,6 +73,14 @@ class UI:
         else:
             self.pauseButton.setText('PAUSE')
             self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
+
+    def real_resume(self):
+        self.pauseButton.setText('PAUSE')
+        self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
+
+    def real_pause(self):
+        self.pauseButton.setText('RESUME')
+        self.timer.stop()
 
     def change_speed(self):
         env.SPEED_MODIFIER = 0.1 * self.speedSlider.value()
