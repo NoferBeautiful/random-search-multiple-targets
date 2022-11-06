@@ -25,7 +25,7 @@ class Grid:
         self.__x_target = np.random.randint(0, self.__n, size=self.__n_targets)
         self.__y_target = np.random.randint(0, self.__m, size=self.__n_targets)
         self.__is_visited = np.zeros((n, m), dtype=int)
-        self.__pen_grid = QPen(Qt.GlobalColor.gray, 1)
+        self.__pen_grid = QPen(Qt.GlobalColor.gray, 0.5)
         self.__target_brush = QBrush(Qt.GlobalColor.green)
         self.__visited_brush = QBrush(Qt.GlobalColor.gray)
 
@@ -48,7 +48,7 @@ class Grid:
 
     def get_entropy(self):
         return (self.__n_targets - self.__found_targets.sum()) * \
-               np.log((self.__is_visited == 1).sum() / np.prod(self.__is_visited.shape))
+               -np.log((1 + (self.__is_visited == 1).sum()) / np.prod(self.__is_visited.shape))
 
     def check(self, x, y, canvas):
         """
