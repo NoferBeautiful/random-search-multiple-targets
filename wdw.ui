@@ -51,7 +51,7 @@
      </font>
     </property>
     <property name="text">
-     <string>START</string>
+     <string>Начать</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pauseButton">
@@ -65,13 +65,13 @@
     </property>
     <property name="font">
      <font>
-      <pointsize>16</pointsize>
+      <pointsize>20</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
     </property>
     <property name="text">
-     <string>PAUSE</string>
+     <string>Пауза</string>
     </property>
     <property name="checkable">
      <bool>false</bool>
