@@ -57,7 +57,6 @@ class Searcher:
     def change_targets_count(self, n):
         if n > 1:
             pass
-            # TODO: Задезейблить поиск вдоль оси, когда таргетов много
         self.__UI.real_pause()
         self.__grid.update_targets_count(n)
         self.restart()

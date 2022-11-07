@@ -5,6 +5,7 @@ import numpy as np
 import sys
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 
 from grid import Grid
 from point import Point
@@ -16,6 +17,7 @@ class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=5, height=4, dpi=100):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes = fig.add_subplot(111)
+        fig.suptitle(env.loc['entropy'][env.lang])
         super(MplCanvas, self).__init__(fig)
 
 
@@ -29,6 +31,10 @@ class UI:
         self.view.setSceneRect(env.SCENE_LEFT, env.SCENE_BOTTOM, env.SCENE_RIGHT, env.SCENE_TOP)
         self.view.setScene(self.scene)
 
+        self.textSliderSimSpeed = self.window.textSliderSimSpeed
+        self.textSliderParticlesNumber = self.window.textSliderParticlesNumber
+        self.textSliderItemsNumber = self.window.textSliderItemsNumber
+        self.locButton = self.window.locButton
         self.startButton = self.window.startButton
         self.pauseButton = self.window.pauseButton
         self.speedSlider = self.window.speedSlider
@@ -47,6 +53,7 @@ class UI:
                            size=env.POINT_SIZE)
         self.searcher = Searcher(self.point, self.grid, self.scene, self)
 
+        self.locButton.clicked.connect(self.change_loc)
         self.startButton.clicked.connect(self.launch)
         self.pauseButton.clicked.connect(self.pause)
         self.speedSlider.valueChanged.connect(self.change_speed)
@@ -88,7 +95,7 @@ class UI:
 
     def reset_settings(self):
         self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
-        self.pauseButton.setText('ПАУЗА')
+        self.pauseButton.setText(env.loc['pause'][env.lang])
         self.steps = 0
         self.entropy_history = []
 
@@ -101,11 +108,11 @@ class UI:
             self.real_resume()
 
     def real_resume(self):
-        self.pauseButton.setText('ПАУЗА')
+        self.pauseButton.setText(env.loc['pause'][env.lang])
         self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
 
     def real_pause(self):
-        self.pauseButton.setText('ПРОДОЛЖИТЬ')
+        self.pauseButton.setText(env.loc['resume'][env.lang])
         self.timer.stop()
 
     def change_speed(self):
@@ -117,3 +124,16 @@ class UI:
         plot.axes.cla()
         plot.axes.plot(x, y)
         plot.draw()
+
+    def update_all_labels(self):
+        self.checkBoxSearchSimple.setText(env.loc['1_axes_search'][env.lang])
+        self.textSliderSimSpeed.setText(env.loc['sim_speed'][env.lang])
+        self.textSliderParticlesNumber.setText(env.loc['number_of_particles'][env.lang])
+        self.textSliderItemsNumber.setText(env.loc['number_of_items'][env.lang])
+
+    def change_loc(self):
+        if env.lang == 'ru':
+            env.lang = 'en'
+        else:
+            env.lang = 'ru'
+        self.update_all_labels()
