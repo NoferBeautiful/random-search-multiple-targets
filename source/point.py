@@ -8,8 +8,8 @@ from sampling import DotSampler
 
 class Point:
     def __init__(self, x, y, x_limits, y_limits, color='b', sampler=DotSampler(),
-                 x_distribution="normal", y_distribution="normal",
-                 sampler_params=None, speed=1, size=25):
+                 x_distribution="gaussian_mixture", y_distribution="gaussian_mixture",
+                 variance=0, speed=1, size=25):
         """
         Point initialization
         :param x: x coordinate
@@ -22,7 +22,7 @@ class Point:
         self.__y_limits = (y_limits[0] + delta, y_limits[1] - delta)
         self.__color = color
         self.__sampler = sampler
-        self.__sampler_params = sampler_params
+        self.__sampler_variance = variance
         self.__speed = speed
         self.__x_distribution = x_distribution
         self.__y_distribution = y_distribution
@@ -37,9 +37,9 @@ class Point:
         self.__generated = None
         self.__is_generated = None
 
-    def restart(self, x, y, x_distribution, y_distribution, sampler_params):
+    def restart(self, x, y, x_distribution, y_distribution, sampler_variance):
         self.__point = np.array([x, y], dtype=np.float64)
-        self.__sampler_params = sampler_params
+        self.__sampler_variance = sampler_variance
         self.__x_distribution = x_distribution
         self.__y_distribution = y_distribution
 
@@ -74,11 +74,17 @@ class Point:
             return self.__generated
         return None
 
-    def change_x_distribution(self, new_x="end", params=None):
+    def change_x_distribution(self, new_x="end", variance=0, new_pos=None):
+        if new_pos is not None:
+            self.ell.moveBy(new_pos - self.__point[0], 0)
+            self.__point[0] = new_pos
         self.__delta[0] = 0
         self.__x_distribution = new_x
 
-    def change_y_distribution(self, new_y="end", params=None):
+    def change_y_distribution(self, new_y="end", variance=0, new_pos=None):
+        if new_pos is not None:
+            self.ell.moveBy(0, new_pos - self.__point[1])
+            self.__point[1] = new_pos
         self.__delta[1] = 0
         self.__y_distribution = new_y
 
@@ -103,7 +109,7 @@ class Point:
             self.__is_generated = True
             self.__generated = self.__sampler.sample_from(self.__x_distribution,
                                                           self.__y_distribution,
-                                                          self.__sampler_params)
+                                                          self.__sampler_variance)
             self.__n_iter = max(np.max(np.ceil(np.abs(self.__generated) / self.__speed)), 1)
             self.__delta = self.__generated / self.__n_iter
             self.__i = 0

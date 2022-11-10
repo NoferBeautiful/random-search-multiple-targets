@@ -71,16 +71,16 @@ class Grid:
                 if i == self.__x_target[k] and j == self.__y_target[k]:
                     self.__found_targets[k] = 1
             if self.__found_targets.sum() != self.__n_targets:
-                return 0
-            return 3
+                return 0, 0
+            return 3, 0
         else:
             if i != self.__x_target[0] and j != self.__y_target[0]:
-                return 0
+                return 0, 0
             elif j != self.__y_target[0]:
-                return 1
+                return 1, i * self.__x_delta + self.__x_delta / 2
             elif i != self.__x_target[0]:
-                return 2
-            return 3
+                return 2, j * self.__y_delta + self.__y_delta / 2
+            return 3, 0
 
     def draw(self, canvas):
         x_start = 0

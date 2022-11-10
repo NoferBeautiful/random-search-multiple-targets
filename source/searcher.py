@@ -24,8 +24,8 @@ class Searcher:
         for point in self.__points:
             x = np.random.randint(env.SCENE_LEFT, env.SCENE_RIGHT)
             y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
-            point.restart(x, y, x_distribution="normal", y_distribution="normal",
-                          sampler_params={"x": [0, 10], "y": [0, 10]})
+            point.restart(x, y, x_distribution="gaussian_mixture", y_distribution="gaussian_mixture",
+                          sampler_variance=0)
             point.appear(self.__scene)
             point.draw(self.__scene)
 
@@ -48,8 +48,8 @@ class Searcher:
             y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
             self.__points.append(Point(x, y, (env.SCENE_LEFT, env.SCENE_RIGHT),
                                        (env.SCENE_BOTTOM, env.SCENE_TOP),
-                                       x_distribution="normal", y_distribution="normal",
-                                       sampler_params={"x": [0, 10], "y": [0, 10]},
+                                       x_distribution="gaussian_mixture", y_distribution="gaussian_mixture",
+                                       variance=0,
                                        size=env.POINT_SIZE))
         self.restart()
         self.__UI.real_resume()
@@ -65,11 +65,11 @@ class Searcher:
     def search(self):
         for point in self.__points:
             point.move()
-            check = self.__grid.check(*point.get_point(), self.__scene)
+            check, new_pos = self.__grid.check(*point.get_point(), self.__scene)
             if check == 3:
                 self.end()
             elif not self.__searchFull:
                 if check == 2:
-                    point.change_y_distribution("end")
+                    point.change_y_distribution("end", new_pos=new_pos)
                 elif check == 1:
-                    point.change_x_distribution("end")
+                    point.change_x_distribution("end", new_pos=new_pos)

@@ -48,8 +48,8 @@ class UI:
         self.grid = Grid(env.SCENE_RIGHT, env.SCENE_TOP, env.GRID_WIDTH, env.GRID_HEIGHT)
         self.point = Point(self.x, self.y, (env.SCENE_LEFT, env.SCENE_RIGHT),
                            (env.SCENE_BOTTOM, env.SCENE_TOP),
-                           x_distribution="normal", y_distribution="normal",
-                           sampler_params={"x": [0, 10], "y": [0, 10]},
+                           x_distribution="gaussian_mixture", y_distribution="gaussian_mixture",
+                           variance=0,
                            size=env.POINT_SIZE)
         self.searcher = Searcher(self.point, self.grid, self.scene, self)
 
