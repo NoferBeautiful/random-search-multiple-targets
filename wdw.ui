@@ -678,6 +678,29 @@ p, li { white-space: pre-wrap; }
      <string>ENG/RU</string>
     </property>
    </widget>
+   <widget class="QWidget" name="widgetPlotDistribution" native="true">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>590</y>
+      <width>241</width>
+      <height>131</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="distributionButton">
+    <property name="geometry">
+     <rect>
+      <x>1040</x>
+      <y>610</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -688,6 +711,18 @@ p, li { white-space: pre-wrap; }
      <height>26</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuwqe">
+    <property name="title">
+     <string>wqe</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuewew">
+    <property name="title">
+     <string>ewew</string>
+    </property>
+   </widget>
+   <addaction name="menuwqe"/>
+   <addaction name="menuewew"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

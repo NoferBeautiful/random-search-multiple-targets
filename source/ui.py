@@ -42,6 +42,8 @@ class UI:
         self.spinBoxAgentsCount = self.window.spinBoxAgentsCount
         self.spinBoxTargetsCount = self.window.spinBoxTargetsCount
         self.widgetPlotEntropy = self.window.widgetPlotEntropy
+        self.widgetPlotDistribution = self.window.widgetPlotDistribution
+        self.distributionButton = self.window.distributionButton
 
         self.x = np.random.randint(env.SCENE_LEFT, env.SCENE_RIGHT)
         self.y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
@@ -53,6 +55,7 @@ class UI:
                            size=env.POINT_SIZE)
         self.searcher = Searcher(self.point, self.grid, self.scene, self)
 
+        self.distributionButton.clicked.connect(self.point.change_distribution)
         self.locButton.clicked.connect(self.change_loc)
         self.startButton.clicked.connect(self.launch)
         self.pauseButton.clicked.connect(self.pause)
@@ -67,6 +70,10 @@ class UI:
         self.layout_plot_entropy = QVBoxLayout()
         self.layout_plot_entropy.addWidget(self.plot_entropy)
         self.widgetPlotEntropy.setLayout(self.layout_plot_entropy)
+        self.plot_distribution = MplCanvas(self, width=5, height=4, dpi=100)
+        self.layout_plot_distribution = QVBoxLayout()
+        self.layout_plot_distribution.addWidget(self.plot_distribution)
+        self.widgetPlotDistribution.setLayout(self.layout_plot_distribution)
 
         self.was_launched = 0
         self.steps = 0

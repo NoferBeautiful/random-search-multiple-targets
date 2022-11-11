@@ -74,6 +74,16 @@ class Point:
             return self.__generated
         return None
 
+    def change_distribution(self, new_x="end", variance=0, new_pos=None):
+        if self.__x_distribution == "gaussian_mixture":
+            self.change_x_distribution("exponential_mixture", variance, new_pos)
+        else:
+            self.change_x_distribution("gaussian_mixture", variance, new_pos)
+        if self.__y_distribution == "gaussian_mixture":
+            self.change_y_distribution("exponential_mixture", variance, new_pos)
+        else:
+            self.change_y_distribution("gaussian_mixture", variance, new_pos)
+
     def change_x_distribution(self, new_x="end", variance=0, new_pos=None):
         if new_pos is not None:
             self.ell.moveBy(new_pos - self.__point[0], 0)
