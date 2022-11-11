@@ -14,10 +14,10 @@ import env
 
 
 class MplCanvas(FigureCanvasQTAgg):
-    def __init__(self, parent=None, width=5, height=4, dpi=100):
+    def __init__(self, parent=None, width=5, height=4, dpi=100, name_gr='q'):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes = fig.add_subplot(111)
-        fig.suptitle(env.loc['entropy'][env.lang])
+        #fig.suptitle(env.loc[name_gr][env.lang], fontsize=8)
         super(MplCanvas, self).__init__(fig)
 
 
@@ -31,6 +31,9 @@ class UI:
         self.view.setSceneRect(env.SCENE_LEFT, env.SCENE_BOTTOM, env.SCENE_RIGHT, env.SCENE_TOP)
         self.view.setScene(self.scene)
 
+        self.textSliderEntropy = self.window.textSliderEntropy
+        self.textSliderDistribution = self.window.textSliderDistribution
+        self.textSliderVariance = self.window.textSliderVariance
         self.textSliderSimSpeed = self.window.textSliderSimSpeed
         self.textSliderParticlesNumber = self.window.textSliderParticlesNumber
         self.textSliderItemsNumber = self.window.textSliderItemsNumber
@@ -38,6 +41,7 @@ class UI:
         self.startButton = self.window.startButton
         self.pauseButton = self.window.pauseButton
         self.speedSlider = self.window.speedSlider
+        self.varianceSlider = self.window.varianceSlider
         self.checkBoxSearchSimple = self.window.checkBoxSearchSimple
         self.spinBoxAgentsCount = self.window.spinBoxAgentsCount
         self.spinBoxTargetsCount = self.window.spinBoxTargetsCount
@@ -55,26 +59,28 @@ class UI:
                            size=env.POINT_SIZE)
         self.searcher = Searcher(self.point, self.grid, self.scene, self)
 
-        self.distributionButton.clicked.connect(self.point.change_distribution)
+        self.distributionButton.clicked.connect(self.update_distribution)
         self.locButton.clicked.connect(self.change_loc)
         self.startButton.clicked.connect(self.launch)
         self.pauseButton.clicked.connect(self.pause)
-        self.speedSlider.valueChanged.connect(self.change_speed)
         self.checkBoxSearchSimple.stateChanged.connect(self.searcher.change_search_type)
         self.spinBoxAgentsCount.valueChanged.connect(
             lambda: self.searcher.change_agents_count(self.spinBoxAgentsCount.value()))
         self.spinBoxTargetsCount.valueChanged.connect(
             lambda: self.searcher.change_targets_count(self.spinBoxTargetsCount.value()))
 
-        self.plot_entropy = MplCanvas(self, width=5, height=4, dpi=100)
+        self.plot_entropy = MplCanvas(self, name_gr='entropy', width=5, height=4, dpi=100)
         self.layout_plot_entropy = QVBoxLayout()
         self.layout_plot_entropy.addWidget(self.plot_entropy)
         self.widgetPlotEntropy.setLayout(self.layout_plot_entropy)
-        self.plot_distribution = MplCanvas(self, width=5, height=4, dpi=100)
+        self.plot_distribution = MplCanvas(self, name_gr='dist', width=5, height=4, dpi=100)
         self.layout_plot_distribution = QVBoxLayout()
         self.layout_plot_distribution.addWidget(self.plot_distribution)
         self.widgetPlotDistribution.setLayout(self.layout_plot_distribution)
+        self.speedSlider.valueChanged.connect(self.change_speed)
+        self.varianceSlider.valueChanged.connect(self.update_variance)
 
+        self.update_variance()
         self.was_launched = 0
         self.steps = 0
         self.entropy_history = []
@@ -127,12 +133,26 @@ class UI:
         if self.timer.isActive():
             self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
 
+    def update_variance(self):
+        x = np.linspace(-20, 20, 100)
+        y = self.point.change_distribution(x, variance=self.varianceSlider.value(), change_dist=False)
+        self.update_plot(self.plot_distribution, x, y)
+
+    def update_distribution(self):
+        x = np.linspace(-20, 20, 100)
+        y = self.point.change_distribution(x, variance=self.varianceSlider.value(), change_dist=True)
+        self.update_plot(self.plot_distribution, x, y)
+
     def update_plot(self, plot, x, y):
         plot.axes.cla()
         plot.axes.plot(x, y)
         plot.draw()
 
     def update_all_labels(self):
+        self.textSliderEntropy.setText(env.loc['entropy'][env.lang])
+        self.textSliderDistribution.setText(env.loc['dist'][env.lang])
+        self.textSliderVariance.setText(env.loc['variance'][env.lang])
+        self.distributionButton.setText(env.loc['change_dist'][env.lang])
         self.checkBoxSearchSimple.setText(env.loc['1_axes_search'][env.lang])
         self.textSliderSimSpeed.setText(env.loc['sim_speed'][env.lang])
         self.textSliderParticlesNumber.setText(env.loc['number_of_particles'][env.lang])

@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QGraphicsItem, QGraphicsEllipseItem
 from PyQt6.QtGui import QPen, QBrush
 from PyQt6.QtCore import Qt
 
-from sampling import DotSampler
+from sampling import DotSampler, distribution_plot
 
 
 class Point:
@@ -74,15 +74,23 @@ class Point:
             return self.__generated
         return None
 
-    def change_distribution(self, new_x="end", variance=0, new_pos=None):
-        if self.__x_distribution == "gaussian_mixture":
-            self.change_x_distribution("exponential_mixture", variance, new_pos)
-        else:
-            self.change_x_distribution("gaussian_mixture", variance, new_pos)
-        if self.__y_distribution == "gaussian_mixture":
-            self.change_y_distribution("exponential_mixture", variance, new_pos)
-        else:
-            self.change_y_distribution("gaussian_mixture", variance, new_pos)
+    def change_distribution(self, x, new_x="end", variance=0, new_pos=None, change_dist=1):
+        new_x = self.__x_distribution
+        if change_dist:
+            if self.__x_distribution == "gaussian_mixture":
+                new_x = "exponential_mixture"
+            else:
+                new_x = "gaussian_mixture"
+        new_y = self.__y_distribution
+        if change_dist:
+            if self.__y_distribution == "gaussian_mixture":
+                new_y = "exponential_mixture"
+            else:
+                new_y = "gaussian_mixture"
+        self.change_x_distribution(new_x, variance, new_pos)
+        self.change_y_distribution(new_y, variance, new_pos)
+        return distribution_plot(x, self.__x_distribution, variance)
+
 
     def change_x_distribution(self, new_x="end", variance=0, new_pos=None):
         if new_pos is not None:
@@ -90,6 +98,7 @@ class Point:
             self.__point[0] = new_pos
         self.__delta[0] = 0
         self.__x_distribution = new_x
+        return new_x
 
     def change_y_distribution(self, new_y="end", variance=0, new_pos=None):
         if new_pos is not None:

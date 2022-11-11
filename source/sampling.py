@@ -48,9 +48,9 @@ def sample_from_gaussian_mixture(generator, params):
     return generator.normal(params[2], params[3])
 
 
-def sample_from_exponential_mixture(generatorm, param):
-    sign = 2 * generatorm.binomial(1, 0.5) - 1
-    return generatorm.exponential(sign * param)
+def sample_from_exponential_mixture(generator, param):
+    sign = 2 * generator.binomial(1, 0.5) - 1
+    return sign * generator.exponential(param)
 
 
 class DotSampler:
