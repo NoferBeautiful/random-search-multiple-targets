@@ -1,6 +1,6 @@
 SCENE_LEFT = 0
-SCENE_RIGHT = 595
-SCENE_TOP = 595
+SCENE_RIGHT = 695 #
+SCENE_TOP = 695 #
 SCENE_BOTTOM = 0
 GRID_HEIGHT = 50
 GRID_WIDTH = 50
@@ -10,6 +10,7 @@ SPEED_MODIFIER = 1.0
 
 lang = 'ru'
 loc = {
+    'start' : {'en' : 'START', 'ru' : 'НАЧАТЬ'},
     'resume' : {'en' : 'RESUME', 'ru' : 'ПРОДОЛЖИТЬ'},
     'pause' : {'en' : 'PAUSE', 'ru' : 'ПАУЗА'},
     'change_dist' : {'en' : 'Change\ndistribution', 'ru' : 'Сменить\nраспределение'},
@@ -19,5 +20,6 @@ loc = {
     'sim_speed' : {'en' : 'Simulation speed', 'ru' : 'Скорость симуляции'},
     'number_of_particles' : {'en' : 'Number of particles', 'ru' : 'Число частиц'},
     'number_of_items' : {'en' : 'Number of items', 'ru' : 'Число предметов'},
-    'variance' : {'en' : 'Variance', 'ru' : 'Дисперсия'}
+    'variance' : {'en' : 'Variance', 'ru' : 'Дисперсия'},
+    'size_field' : {'en' : 'Размер поля (25-100)', 'ru' : 'Size of field (25-100)'}
 }

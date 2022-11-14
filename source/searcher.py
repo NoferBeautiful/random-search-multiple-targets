@@ -30,6 +30,7 @@ class Searcher:
             point.draw(self.__scene)
 
     def end(self):
+        self.__UI.may_be_paused = 0
         self.__UI.real_pause()
 
     def change_search_type(self):

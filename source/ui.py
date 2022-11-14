@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QApplication, QGraphicsScene, QSlider, QDockWidget, QVBoxLayout
 from PyQt6.QtCore import QTimer, Qt
 from PyQt6 import uic
+from PyQt6.QtGui import QFont
 import numpy as np
 import sys
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
@@ -35,12 +36,14 @@ class UI:
         self.textSliderDistribution = self.window.textSliderDistribution
         self.textSliderVariance = self.window.textSliderVariance
         self.textSliderSimSpeed = self.window.textSliderSimSpeed
+        self.textSliderSize = self.window.textSliderSize
         self.textSliderParticlesNumber = self.window.textSliderParticlesNumber
         self.textSliderItemsNumber = self.window.textSliderItemsNumber
         self.locButton = self.window.locButton
         self.startButton = self.window.startButton
         self.pauseButton = self.window.pauseButton
         self.speedSlider = self.window.speedSlider
+        self.sizeSlider = self.window.sizeSlider
         self.varianceSlider = self.window.varianceSlider
         self.checkBoxSearchSimple = self.window.checkBoxSearchSimple
         self.spinBoxAgentsCount = self.window.spinBoxAgentsCount
@@ -78,15 +81,21 @@ class UI:
         self.layout_plot_distribution.addWidget(self.plot_distribution)
         self.widgetPlotDistribution.setLayout(self.layout_plot_distribution)
         self.speedSlider.valueChanged.connect(self.change_speed)
+        self.sizeSlider.valueChanged.connect(self.change_size)
         self.varianceSlider.valueChanged.connect(self.update_variance)
 
         self.update_variance()
+        self.may_be_paused = 0
         self.was_launched = 0
         self.steps = 0
         self.entropy_history = []
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.step)
+
+        # kys if you see this shitcoding
+        self.change_loc()
+        self.change_loc()
 
     def step(self):
         self.steps += 1
@@ -103,6 +112,10 @@ class UI:
 
     def launch(self):
         self.was_launched = 1
+        self.grid = Grid(env.SCENE_RIGHT, env.SCENE_TOP, env.GRID_WIDTH, env.GRID_HEIGHT)
+        self.searcher = Searcher(self.point, self.grid, self.scene, self)
+
+        self.may_be_paused = 1
         self.searcher.restart()
         self.reset_settings()
 
@@ -110,10 +123,12 @@ class UI:
         self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
         self.pauseButton.setText(env.loc['pause'][env.lang])
         self.steps = 0
+        self.may_be_paused = 1
         self.entropy_history = []
+        self.update_plot(self.plot_entropy)
 
     def pause(self):
-        if self.was_launched == 0:
+        if self.may_be_paused == 0:
             return
         if self.timer.isActive():
             self.real_pause()
@@ -143,7 +158,12 @@ class UI:
         y = self.point.change_distribution(x, variance=self.varianceSlider.value(), change_dist=True)
         self.update_plot(self.plot_distribution, x, y)
 
-    def update_plot(self, plot, x, y):
+    def change_size(self):
+        env.GRID_HEIGHT = env.GRID_WIDTH = self.sizeSlider.value()
+        if self.was_launched:
+            self.launch()
+
+    def update_plot(self, plot, x=[], y=[]):
         plot.axes.cla()
         plot.axes.plot(x, y)
         plot.draw()
@@ -157,6 +177,43 @@ class UI:
         self.textSliderSimSpeed.setText(env.loc['sim_speed'][env.lang])
         self.textSliderParticlesNumber.setText(env.loc['number_of_particles'][env.lang])
         self.textSliderItemsNumber.setText(env.loc['number_of_items'][env.lang])
+        self.textSliderSize.setText(env.loc['size_field'][env.lang])
+
+        self.startButton.setText(env.loc['start'][env.lang])
+        #self.startButton.setTextFormat(self.startButton.TextFormat())
+        if self.pauseButton.text() in env.loc['resume'].values():
+            self.pauseButton.setText(env.loc['resume'][env.lang])
+        elif self.pauseButton.text() in env.loc['pause'].values():
+            self.pauseButton.setText(env.loc['pause'][env.lang])
+
+        need_to_change_bold = [self.textSliderEntropy,
+                               self.textSliderDistribution,
+                               self.textSliderVariance,
+                               self.textSliderSimSpeed,
+                               self.textSliderParticlesNumber,
+                               self.textSliderItemsNumber,
+                               self.textSliderSize,
+                               self.distributionButton,
+                               self.checkBoxSearchSimple]
+        font = QFont('MS Shell Dlg 2', 16)
+        for item in need_to_change_bold:
+            if item == self.textSliderDistribution:
+                item.setFont(QFont('MS Shell Dlg 2', 12))
+            else:
+                item.setFont(font)
+            item.setStyleSheet("font-weight: bold")
+
+
+        need_to_change_alignment = [self.textSliderEntropy,
+                                    self.textSliderDistribution,
+                                    self.textSliderVariance,
+                                    self.textSliderSimSpeed,
+                                    self.textSliderParticlesNumber,
+                                    self.textSliderItemsNumber,
+                                    self.textSliderSize]
+        for item in need_to_change_alignment:
+            item.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
 
     def change_loc(self):
         if env.lang == 'ru':
