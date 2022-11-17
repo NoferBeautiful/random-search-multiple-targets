@@ -9,6 +9,6 @@ from point import Point
 from ui import UI
 import env
 
-
-UI = UI()
-UI.start_exe()
+if __name__ == "__main__":
+    UI = UI()
+    UI.start_exe()

@@ -19,7 +19,7 @@ class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, parent=None, width=5, height=4, dpi=100, name_gr='q'):
         fig = Figure(figsize=(width, height), dpi=dpi)
         self.axes = fig.add_subplot(111)
-        #fig.suptitle(env.loc[name_gr][env.lang], fontsize=8)
+        # fig.suptitle(env.loc[name_gr][env.lang], fontsize=8)
         super(MplCanvas, self).__init__(fig)
 
 
@@ -67,7 +67,7 @@ class UI:
         self.locButton.clicked.connect(self.change_loc)
         self.startButton.clicked.connect(self.launch)
         self.pauseButton.clicked.connect(self.pause)
-        self.checkBoxSearchSimple.stateChanged.connect(lambda : self.searcher.change_search_type())
+        self.checkBoxSearchSimple.stateChanged.connect(lambda: self.searcher.change_search_type())
         self.spinBoxAgentsCount.valueChanged.connect(
             lambda: self.searcher.change_agents_count(self.spinBoxAgentsCount.value()))
         self.spinBoxTargetsCount.valueChanged.connect(
@@ -93,7 +93,6 @@ class UI:
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.step)
-
         # kys if you see this shitcoding
         self.change_loc()
         self.change_loc()
@@ -104,10 +103,11 @@ class UI:
             return
         self.entropy_history.append(self.grid.get_entropy())
         if len(self.entropy_history) > 3000:
-            del self.entropy_history[-3001::-1]
+            del self.entropy_history[-3001::-1]  # ToDO: check this
         self.searcher.search()
         if self.steps % 100 == 0:
-            self.update_plot(self.plot_entropy, range(self.steps - len(self.entropy_history) + 1, self.steps + 1), self.entropy_history)
+            self.update_plot(self.plot_entropy, range(self.steps - len(self.entropy_history) + 1, self.steps + 1),
+                             self.entropy_history)
 
     def start_exe(self):
         self.window.show()
@@ -164,7 +164,7 @@ class UI:
     def change_size(self):
         env.GRID_HEIGHT = env.GRID_WIDTH = self.sizeSlider.value()
         if self.was_launched:
-            self.launch()
+            self.searcher.restart()
 
     def update_plot(self, plot, x=[], y=[]):
         plot.axes.cla()
@@ -184,7 +184,7 @@ class UI:
         self.textSliderSize.setText(env.loc['size_field'][env.lang])
 
         self.startButton.setText(env.loc['start'][env.lang])
-        #self.startButton.setTextFormat(self.startButton.TextFormat())
+        # self.startButton.setTextFormat(self.startButton.TextFormat())
         if self.pauseButton.text() in env.loc['resume'].values():
             self.pauseButton.setText(env.loc['resume'][env.lang])
         elif self.pauseButton.text() in env.loc['pause'].values():
@@ -207,7 +207,6 @@ class UI:
                 item.setFont(font)
             item.setStyleSheet("font-weight: bold")
 
-
         need_to_change_alignment = [self.textSliderEntropy,
                                     self.textSliderDistribution,
                                     self.textSliderVariance,
@@ -217,7 +216,6 @@ class UI:
                                     self.textSliderSize]
         for item in need_to_change_alignment:
             item.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
 
     def change_loc(self):
         if env.lang == 'ru':

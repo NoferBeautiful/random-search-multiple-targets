@@ -37,6 +37,15 @@ class Point:
         self.__generated = None
         self.__is_generated = None
 
+    def get_x_distribution(self):
+        return self.__x_distribution
+
+    def get_y_distribution(self):
+        return self.__y_distribution
+
+    def get_variance(self):
+        return self.__sampler_variance
+
     def restart(self, x, y, x_distribution, y_distribution, sampler_variance):
         self.__point = np.array([x, y], dtype=np.float64)
         self.__sampler_variance = sampler_variance
@@ -90,7 +99,6 @@ class Point:
         self.change_x_distribution(new_x, variance, new_pos)
         self.change_y_distribution(new_y, variance, new_pos)
         return distribution_plot(x, self.__x_distribution, variance)
-
 
     def change_x_distribution(self, new_x="end", variance=0, new_pos=None):
         if new_pos is not None:
