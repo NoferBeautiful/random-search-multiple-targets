@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1404</width>
-    <height>808</height>
+    <width>1489</width>
+    <height>822</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,8 +36,8 @@
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>641</y>
+      <x>760</x>
+      <y>671</y>
       <width>261</width>
       <height>71</height>
      </rect>
@@ -57,8 +57,8 @@
    <widget class="QPushButton" name="pauseButton">
     <property name="geometry">
      <rect>
-      <x>1110</x>
-      <y>531</y>
+      <x>1150</x>
+      <y>561</y>
       <width>261</width>
       <height>71</height>
      </rect>
@@ -80,8 +80,8 @@
    <widget class="QSlider" name="speedSlider">
     <property name="geometry">
      <rect>
-      <x>1110</x>
-      <y>501</y>
+      <x>1150</x>
+      <y>531</y>
       <width>261</width>
       <height>22</height>
      </rect>
@@ -105,8 +105,8 @@
    <widget class="QTextBrowser" name="textSliderSimSpeed">
     <property name="geometry">
      <rect>
-      <x>1110</x>
-      <y>460</y>
+      <x>1150</x>
+      <y>490</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -265,8 +265,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QCheckBox" name="checkBoxSearchSimple">
     <property name="geometry">
      <rect>
-      <x>780</x>
-      <y>380</y>
+      <x>790</x>
+      <y>410</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -285,8 +285,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QSpinBox" name="spinBoxAgentsCount">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>461</y>
+      <x>840</x>
+      <y>491</y>
       <width>101</width>
       <height>61</height>
      </rect>
@@ -308,8 +308,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QSpinBox" name="spinBoxTargetsCount">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>571</y>
+      <x>840</x>
+      <y>601</y>
       <width>101</width>
       <height>61</height>
      </rect>
@@ -333,16 +333,16 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>710</x>
       <y>41</y>
-      <width>361</width>
-      <height>271</height>
+      <width>381</width>
+      <height>291</height>
      </rect>
     </property>
    </widget>
    <widget class="QTextBrowser" name="textSliderParticlesNumber">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>421</y>
+      <x>760</x>
+      <y>451</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -501,8 +501,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QTextBrowser" name="textSliderItemsNumber">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>531</y>
+      <x>760</x>
+      <y>561</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -661,8 +661,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="locButton">
     <property name="geometry">
      <rect>
-      <x>1190</x>
-      <y>620</y>
+      <x>1380</x>
+      <y>720</y>
       <width>93</width>
       <height>28</height>
      </rect>
@@ -683,16 +683,16 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>1060</x>
       <y>41</y>
-      <width>321</width>
-      <height>211</height>
+      <width>411</width>
+      <height>291</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="distributionButton">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>380</y>
+      <x>1180</x>
+      <y>410</y>
       <width>221</width>
       <height>61</height>
      </rect>
@@ -713,8 +713,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QSlider" name="varianceSlider">
     <property name="geometry">
      <rect>
-      <x>1130</x>
-      <y>350</y>
+      <x>1180</x>
+      <y>380</y>
       <width>221</width>
       <height>22</height>
      </rect>
@@ -744,8 +744,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QTextBrowser" name="textSliderVariance">
     <property name="geometry">
      <rect>
-      <x>1100</x>
-      <y>310</y>
+      <x>1150</x>
+      <y>340</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -904,7 +904,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QTextBrowser" name="textSliderEntropy">
     <property name="geometry">
      <rect>
-      <x>790</x>
+      <x>800</x>
       <y>10</y>
       <width>211</width>
       <height>31</height>
@@ -1064,8 +1064,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QTextBrowser" name="textSliderDistribution">
     <property name="geometry">
      <rect>
-      <x>1070</x>
-      <y>10</y>
+      <x>1120</x>
+      <y>20</y>
       <width>331</width>
       <height>21</height>
      </rect>
@@ -1224,8 +1224,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QSlider" name="sizeSlider">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>350</y>
+      <x>760</x>
+      <y>380</y>
       <width>261</width>
       <height>22</height>
      </rect>
@@ -1258,8 +1258,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QTextBrowser" name="textSliderSize">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>310</y>
+      <x>760</x>
+      <y>340</y>
       <width>271</width>
       <height>31</height>
      </rect>
@@ -1421,7 +1421,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1404</width>
+     <width>1489</width>
      <height>26</height>
     </rect>
    </property>

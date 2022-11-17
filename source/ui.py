@@ -6,6 +6,7 @@ import numpy as np
 import sys
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
+from matplotlib.ticker import FormatStrFormatter
 import matplotlib.pyplot as plt
 
 from grid import Grid
@@ -66,7 +67,7 @@ class UI:
         self.locButton.clicked.connect(self.change_loc)
         self.startButton.clicked.connect(self.launch)
         self.pauseButton.clicked.connect(self.pause)
-        self.checkBoxSearchSimple.stateChanged.connect(self.searcher.change_search_type)
+        self.checkBoxSearchSimple.stateChanged.connect(lambda : self.searcher.change_search_type())
         self.spinBoxAgentsCount.valueChanged.connect(
             lambda: self.searcher.change_agents_count(self.spinBoxAgentsCount.value()))
         self.spinBoxTargetsCount.valueChanged.connect(
@@ -102,9 +103,11 @@ class UI:
         if self.steps < 3:
             return
         self.entropy_history.append(self.grid.get_entropy())
+        if len(self.entropy_history) > 3000:
+            del self.entropy_history[-3001::-1]
         self.searcher.search()
         if self.steps % 100 == 0:
-            self.update_plot(self.plot_entropy, range(3, self.steps + 1), self.entropy_history)
+            self.update_plot(self.plot_entropy, range(self.steps - len(self.entropy_history) + 1, self.steps + 1), self.entropy_history)
 
     def start_exe(self):
         self.window.show()
@@ -165,6 +168,7 @@ class UI:
 
     def update_plot(self, plot, x=[], y=[]):
         plot.axes.cla()
+        plot.axes.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
         plot.axes.plot(x, y)
         plot.draw()
 
