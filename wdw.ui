@@ -661,10 +661,10 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="locButton">
     <property name="geometry">
      <rect>
-      <x>1380</x>
+      <x>1310</x>
       <y>720</y>
-      <width>93</width>
-      <height>28</height>
+      <width>151</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -1231,7 +1231,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="minimum">
-     <number>25</number>
+     <number>40</number>
     </property>
     <property name="maximum">
      <number>100</number>
@@ -1415,28 +1415,400 @@ p, li { white-space: pre-wrap; }
      <set>Qt::NoTextInteraction</set>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1489</width>
-     <height>26</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuwqe">
-    <property name="title">
-     <string>wqe</string>
+   <widget class="QPushButton" name="menuButtonDemo">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>380</y>
+      <width>261</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string>Демонстрация</string>
     </property>
    </widget>
-   <widget class="QMenu" name="menuewew">
-    <property name="title">
-     <string>ewew</string>
+   <widget class="QPushButton" name="menuButtonTheory">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>460</y>
+      <width>261</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string>Теория</string>
     </property>
    </widget>
-   <addaction name="menuwqe"/>
-   <addaction name="menuewew"/>
+   <widget class="QPushButton" name="menuButtonAuthors">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>540</y>
+      <width>261</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string>Авторы</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="menuButtonExit">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>620</y>
+      <width>261</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <strikeout>false</strikeout>
+     </font>
+    </property>
+    <property name="text">
+     <string>Выход</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMainVmk">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>331</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>photos/photo_main_vmk.jpg</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMainFizfak">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>0</y>
+      <width>311</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>photos/photo_main_fizfak.jpg</pixmap>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>720</y>
+      <width>151</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Назад</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelAuthorsDima">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>200</y>
+      <width>331</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>photos/photo_authors_dima.jpg</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelAuthorsNikita">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>190</y>
+      <width>331</width>
+      <height>331</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>photos/photo_authors_nikita.jpg</pixmap>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelAuthorsDimaText">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>520</y>
+      <width>281</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Феоктистов Дмитрий</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelAuthorsNikitaText">
+    <property name="geometry">
+     <rect>
+      <x>900</x>
+      <y>520</y>
+      <width>211</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Боровко Никита</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelAuthorsLector">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>600</y>
+      <width>501</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Лектор: Андреев Анатолий Васильевич</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelAuthorsSeminarist">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>650</y>
+      <width>581</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Семинарист: Чичигина Ольга Александровна</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMainYear">
+    <property name="geometry">
+     <rect>
+      <x>720</x>
+      <y>730</y>
+      <width>91</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>2022</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMainString1">
+    <property name="geometry">
+     <rect>
+      <x>420</x>
+      <y>20</y>
+      <width>811</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Московский Государственный Университет им. М. В. Ломоносова</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMainString2">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>60</y>
+      <width>691</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Факультет вычислительной математики и кибернетики</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMainString3">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>150</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Компьютерная демонстрация по курсу</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMainString4">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>200</y>
+      <width>421</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>14</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>СТАТИСТИЧЕСКАЯ ФИЗИКА</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelMainString5">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>280</y>
+      <width>641</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>20</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Случайный поиск с несколькими целями</string>
+    </property>
+   </widget>
+   <zorder>menuButtonAuthors</zorder>
+   <zorder>menuButtonTheory</zorder>
+   <zorder>menuButtonDemo</zorder>
+   <zorder>scene</zorder>
+   <zorder>startButton</zorder>
+   <zorder>pauseButton</zorder>
+   <zorder>speedSlider</zorder>
+   <zorder>textSliderSimSpeed</zorder>
+   <zorder>checkBoxSearchSimple</zorder>
+   <zorder>spinBoxAgentsCount</zorder>
+   <zorder>spinBoxTargetsCount</zorder>
+   <zorder>widgetPlotEntropy</zorder>
+   <zorder>textSliderParticlesNumber</zorder>
+   <zorder>textSliderItemsNumber</zorder>
+   <zorder>locButton</zorder>
+   <zorder>widgetPlotDistribution</zorder>
+   <zorder>distributionButton</zorder>
+   <zorder>varianceSlider</zorder>
+   <zorder>textSliderVariance</zorder>
+   <zorder>textSliderEntropy</zorder>
+   <zorder>textSliderDistribution</zorder>
+   <zorder>sizeSlider</zorder>
+   <zorder>textSliderSize</zorder>
+   <zorder>menuButtonExit</zorder>
+   <zorder>labelMainVmk</zorder>
+   <zorder>labelMainFizfak</zorder>
+   <zorder>backButton</zorder>
+   <zorder>labelAuthorsDima</zorder>
+   <zorder>labelAuthorsNikita</zorder>
+   <zorder>labelAuthorsDimaText</zorder>
+   <zorder>labelAuthorsNikitaText</zorder>
+   <zorder>labelAuthorsLector</zorder>
+   <zorder>labelAuthorsSeminarist</zorder>
+   <zorder>labelMainYear</zorder>
+   <zorder>labelMainString1</zorder>
+   <zorder>labelMainString2</zorder>
+   <zorder>labelMainString3</zorder>
+   <zorder>labelMainString4</zorder>
+   <zorder>labelMainString5</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
