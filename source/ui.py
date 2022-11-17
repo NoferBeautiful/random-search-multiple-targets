@@ -3,7 +3,10 @@ from PyQt6.QtCore import QTimer, Qt
 from PyQt6 import uic
 from PyQt6.QtGui import QFont
 import numpy as np
-import sys
+
+import os, sys, subprocess
+import webbrowser
+
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
 from matplotlib.ticker import FormatStrFormatter
@@ -30,6 +33,56 @@ class UI:
         self.view = self.window.scene
         self.scene = QGraphicsScene()
 
+        self.backButton = self.window.backButton
+        self.backButton.clicked.connect(lambda: self.show_only_chosen_section(self.ui_main))
+
+        # Main menu
+        self.labelMainYear = self.window.labelMainYear
+        self.labelMainVmk = self.window.labelMainVmk
+        self.labelMainFizfak = self.window.labelMainFizfak
+        self.menuButtonDemo = self.window.menuButtonDemo
+        self.menuButtonTheory = self.window.menuButtonTheory
+        self.menuButtonAuthors = self.window.menuButtonAuthors
+        self.menuButtonExit = self.window.menuButtonExit
+        self.labelMainString1 = self.window.labelMainString1
+        self.labelMainString2 = self.window.labelMainString2
+        self.labelMainString3 = self.window.labelMainString3
+        self.labelMainString4 = self.window.labelMainString4
+        self.labelMainString5 = self.window.labelMainString5
+        self.ui_main = [self.menuButtonDemo,
+                        self.menuButtonTheory,
+                        self.menuButtonAuthors,
+                        self.menuButtonExit,
+                        self.labelMainVmk,
+                        self.labelMainFizfak,
+                        self.labelMainYear,
+                        self.labelMainString1,
+                        self.labelMainString2,
+                        self.labelMainString3,
+                        self.labelMainString4,
+                        self.labelMainString5]
+
+        self.menuButtonDemo.clicked.connect(lambda: self.show_only_chosen_section(self.ui_demo))
+        self.menuButtonTheory.clicked.connect(self.theory)
+        self.menuButtonAuthors.clicked.connect(lambda: self.show_only_chosen_section(self.ui_authors))
+        self.menuButtonExit.clicked.connect(lambda: sys.exit(0))
+
+        # Authors
+        self.labelAuthorsDima = self.window.labelAuthorsDima
+        self.labelAuthorsNikita = self.window.labelAuthorsNikita
+        self.labelAuthorsDimaText = self.window.labelAuthorsDimaText
+        self.labelAuthorsNikitaText = self.window.labelAuthorsNikitaText
+        self.labelAuthorsLector = self.window.labelAuthorsLector
+        self.labelAuthorsSeminarist = self.window.labelAuthorsSeminarist
+
+        self.ui_authors = [self.labelAuthorsDima,
+                           self.labelAuthorsNikita,
+                           self.labelAuthorsDimaText,
+                           self.labelAuthorsNikitaText,
+                           self.labelAuthorsLector,
+                           self.labelAuthorsSeminarist]
+
+        # Demonstration
         self.view.setSceneRect(env.SCENE_LEFT, env.SCENE_BOTTOM, env.SCENE_RIGHT, env.SCENE_TOP)
         self.view.setScene(self.scene)
 
@@ -52,6 +105,26 @@ class UI:
         self.widgetPlotEntropy = self.window.widgetPlotEntropy
         self.widgetPlotDistribution = self.window.widgetPlotDistribution
         self.distributionButton = self.window.distributionButton
+        self.ui_demo = [self.view,
+                        self.textSliderEntropy,
+                        self.textSliderDistribution,
+                        self.textSliderVariance,
+                        self.textSliderSimSpeed,
+                        self.textSliderSize,
+                        self.textSliderParticlesNumber,
+                        self.textSliderItemsNumber,
+                        self.locButton,
+                        self.startButton,
+                        self.pauseButton,
+                        self.speedSlider,
+                        self.sizeSlider,
+                        self.varianceSlider,
+                        self.checkBoxSearchSimple,
+                        self.spinBoxAgentsCount,
+                        self.spinBoxTargetsCount,
+                        self.widgetPlotEntropy,
+                        self.widgetPlotDistribution,
+                        self.distributionButton]
 
         self.x = np.random.randint(env.SCENE_LEFT, env.SCENE_RIGHT)
         self.y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
@@ -93,9 +166,39 @@ class UI:
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.step)
+
         # kys if you see this shitcoding
         self.change_loc()
         self.change_loc()
+        self.locButton.hide()
+        self.locButton.show()
+
+        self.uis = [self.ui_main, self.ui_demo, self.ui_authors]
+
+        self.show_only_chosen_section(self.ui_main)
+
+    def hide_section(self, section):
+        for i in section:
+            i.hide()
+
+    def show_section(self, section):
+        for i in section:
+            i.show()
+
+    def show_only_chosen_section(self, section):
+        for i in self.uis:
+            if i != section:
+                self.hide_section(i)
+        self.show_section(section)
+
+        if section == self.ui_main:
+            self.backButton.hide()
+        else:
+            self.backButton.show()
+
+        if section == self.ui_authors:
+            self.labelMainString1.show()
+            self.labelMainString2.show()
 
     def step(self):
         self.steps += 1
@@ -103,7 +206,7 @@ class UI:
             return
         self.entropy_history.append(self.grid.get_entropy())
         if len(self.entropy_history) > 3000:
-            del self.entropy_history[-3001::-1]  # ToDO: check this
+            del self.entropy_history[-3001::-1]
         self.searcher.search()
         if self.steps % 100 == 0:
             self.update_plot(self.plot_entropy, range(self.steps - len(self.entropy_history) + 1, self.steps + 1),
@@ -117,7 +220,8 @@ class UI:
         self.was_launched = 1
         self.grid = Grid(env.SCENE_RIGHT, env.SCENE_TOP, env.GRID_WIDTH, env.GRID_HEIGHT)
         self.searcher = Searcher(self.point, self.grid, self.scene, self)
-
+        self.searcher.change_agents_count(self.spinBoxAgentsCount.value())
+        self.searcher.change_targets_count(self.spinBoxTargetsCount.value())
         self.may_be_paused = 1
         self.searcher.restart()
         self.reset_settings()
@@ -129,6 +233,8 @@ class UI:
         self.may_be_paused = 1
         self.entropy_history = []
         self.update_plot(self.plot_entropy)
+        self.update_distribution()
+        self.update_distribution()
 
     def pause(self):
         if self.may_be_paused == 0:
@@ -147,7 +253,7 @@ class UI:
         self.timer.stop()
 
     def change_speed(self):
-        env.SPEED_MODIFIER = 0.1 * self.speedSlider.value()
+        env.SPEED_MODIFIER = 0.1 * (8 + self.speedSlider.value())
         if self.timer.isActive():
             self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
 
@@ -164,7 +270,7 @@ class UI:
     def change_size(self):
         env.GRID_HEIGHT = env.GRID_WIDTH = self.sizeSlider.value()
         if self.was_launched:
-            self.searcher.restart()
+            self.launch()
 
     def update_plot(self, plot, x=[], y=[]):
         plot.axes.cla()
@@ -182,7 +288,12 @@ class UI:
         self.textSliderParticlesNumber.setText(env.loc['number_of_particles'][env.lang])
         self.textSliderItemsNumber.setText(env.loc['number_of_items'][env.lang])
         self.textSliderSize.setText(env.loc['size_field'][env.lang])
+        self.menuButtonDemo.setText(env.loc['button_demo'][env.lang])
+        self.menuButtonTheory.setText(env.loc['button_theory'][env.lang])
+        self.menuButtonAuthors.setText(env.loc['button_authors'][env.lang])
+        self.menuButtonExit.setText(env.loc['button_exit'][env.lang])
 
+        self.backButton.setText(env.loc['back'][env.lang])
         self.startButton.setText(env.loc['start'][env.lang])
         # self.startButton.setTextFormat(self.startButton.TextFormat())
         if self.pauseButton.text() in env.loc['resume'].values():
@@ -198,7 +309,9 @@ class UI:
                                self.textSliderItemsNumber,
                                self.textSliderSize,
                                self.distributionButton,
-                               self.checkBoxSearchSimple]
+                               self.checkBoxSearchSimple,
+                               self.backButton,
+                               self.locButton]
         font = QFont('MS Shell Dlg 2', 16)
         for item in need_to_change_bold:
             if item == self.textSliderDistribution:
@@ -223,3 +336,14 @@ class UI:
         else:
             env.lang = 'ru'
         self.update_all_labels()
+
+    def open_file(self, filename):
+    # import os, sys, subprocess
+        if sys.platform == "win32":
+            os.startfile(filename)
+        else:
+            opener = "open" if sys.platform == "darwin" else "xdg-open"
+            subprocess.call([opener, filename])
+
+    def theory(self):
+        self.open_file('statphys_theory.pdf')
