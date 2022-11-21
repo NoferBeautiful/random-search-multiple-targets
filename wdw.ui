@@ -1643,7 +1643,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QLabel" name="labelAuthorsSeminarist">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>510</x>
       <y>650</y>
       <width>581</width>
       <height>41</height>
@@ -1655,7 +1655,7 @@ p, li { white-space: pre-wrap; }
      </font>
     </property>
     <property name="text">
-     <string>Семинарист: Чичигина Ольга Александровна</string>
+     <string>Руководитель: Чичигина Ольга Александровна</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelMainYear">

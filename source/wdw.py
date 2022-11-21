@@ -711,7 +711,7 @@ class Ui_MainWindow(object):
         self.labelAuthorsDimaText.setText(_translate("MainWindow", "Феоктистов Дмитрий"))
         self.labelAuthorsNikitaText.setText(_translate("MainWindow", "Боровко Никита"))
         self.labelAuthorsLector.setText(_translate("MainWindow", "Лектор: Андреев Анатолий Васильевич"))
-        self.labelAuthorsSeminarist.setText(_translate("MainWindow", "Семинарист: Чичигина Ольга Александровна"))
+        self.labelAuthorsSeminarist.setText(_translate("MainWindow", "Руководитель: Чичигина Ольга Александровна"))
         self.labelMainYear.setText(_translate("MainWindow", "2022"))
         self.labelMainString1.setText(_translate("MainWindow", "Московский Государственный Университет им. М. В. Ломоносова"))
         self.labelMainString2.setText(_translate("MainWindow", "Факультет вычислительной математики и кибернетики"))

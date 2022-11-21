@@ -313,7 +313,11 @@ class UI:
                                self.distributionButton,
                                self.checkBoxSearchSimple,
                                self.backButton,
-                               self.locButton]
+                               self.locButton,
+                               self.menuButtonDemo,
+                               self.menuButtonTheory,
+                               self.menuButtonAuthors,
+                               self.menuButtonExit]
         font = QFont('MS Shell Dlg 2', 16)
         for item in need_to_change_bold:
             if item == self.textSliderDistribution:
