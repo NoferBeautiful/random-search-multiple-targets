@@ -276,6 +276,8 @@ class UI:
 
     def update_plot(self, plot, x=[], y=[]):
         plot.axes.cla()
+        if len(y) > 0:
+            plot.axes.set_yticks([min(y), max(y)])
         plot.axes.yaxis.set_major_formatter(FormatStrFormatter('%.2f'))
         plot.axes.plot(x, y)
         plot.draw()

@@ -28,6 +28,7 @@ class Grid:
         self.__pen_grid = QPen(Qt.GlobalColor.gray, 0.5)
         self.__target_brush = QBrush(Qt.GlobalColor.green)
         self.__visited_brush = QBrush(Qt.GlobalColor.gray)
+        self.__visited_target = QBrush(Qt.GlobalColor.darkGreen)
 
     def update_targets_count(self, n):
         self.__n_targets = n
@@ -70,6 +71,10 @@ class Grid:
             for k in range(self.__n_targets):
                 if i == self.__x_target[k] and j == self.__y_target[k]:
                     self.__found_targets[k] = 1
+                    canvas.addRect(i * self.__x_delta,
+                                   j * self.__y_delta,
+                                   self.__x_delta, self.__y_delta,
+                                   self.__pen_grid, self.__visited_target)
             if self.__found_targets.sum() != self.__n_targets:
                 return 0, 0
             return 3, 0
