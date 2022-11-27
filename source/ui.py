@@ -3,7 +3,7 @@ from PyQt6.QtCore import QTimer, Qt
 from PyQt6.QtGui import QFont
 import numpy as np
 
-# from os import startfile
+from os import startfile
 import sys
 from subprocess import call
 
