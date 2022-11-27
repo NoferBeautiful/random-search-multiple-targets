@@ -1,6 +1,6 @@
 SCENE_LEFT = 0
-SCENE_RIGHT = 695 #
-SCENE_TOP = 695 #
+SCENE_RIGHT = 695
+SCENE_TOP = 695
 SCENE_BOTTOM = 0
 GRID_HEIGHT = 50
 GRID_WIDTH = 50
@@ -22,7 +22,8 @@ loc = {
     'number_of_particles' : {'en' : 'Number of particles', 'ru' : 'Число частиц'},
     'number_of_items' : {'en' : 'Number of items', 'ru' : 'Число предметов'},
     'variance' : {'en' : 'Variance', 'ru' : 'Дисперсия'},
-    'size_field' : {'en' : 'Size of field (25-100)', 'ru' : 'Размер поля (25-100)'},
+    'peak' : {'en' : 'Peak ratio', 'ru' : 'Соотношение пиков'},
+    'size_field' : {'en' : 'Size (25x25 - 100x100)', 'ru' : 'Размер (25x25 - 100x100)'},
     'back' : {'en' : 'Back', 'ru' : 'Назад'},
     'button_demo' : {'en' : 'Demonstration', 'ru' : 'Демонстрация'},
     'button_theory' : {'en' : 'Theory', 'ru' : 'Теория'},

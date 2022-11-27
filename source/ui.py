@@ -24,7 +24,7 @@ class MplCanvas(FigureCanvasQTAgg):
         # fig.suptitle(env.loc[name_gr][env.lang], fontsize=8)
         super(MplCanvas, self).__init__(fig)
 
-from wdw import Ui_MainWindow
+from source.wdw import Ui_MainWindow
 
 class UI:
     def __init__(self):
@@ -95,12 +95,14 @@ class UI:
         self.textSliderSize = self.window.textSliderSize
         self.textSliderParticlesNumber = self.window.textSliderParticlesNumber
         self.textSliderItemsNumber = self.window.textSliderItemsNumber
+        self.textSliderPeak = self.window.textSliderPeak
         self.locButton = self.window.locButton
         self.startButton = self.window.startButton
         self.pauseButton = self.window.pauseButton
         self.speedSlider = self.window.speedSlider
         self.sizeSlider = self.window.sizeSlider
         self.varianceSlider = self.window.varianceSlider
+        self.peakSlider = self.window.peakSlider
         self.checkBoxSearchSimple = self.window.checkBoxSearchSimple
         self.spinBoxAgentsCount = self.window.spinBoxAgentsCount
         self.spinBoxTargetsCount = self.window.spinBoxTargetsCount
@@ -115,12 +117,14 @@ class UI:
                         self.textSliderSize,
                         self.textSliderParticlesNumber,
                         self.textSliderItemsNumber,
+                        self.textSliderPeak,
                         self.locButton,
                         self.startButton,
                         self.pauseButton,
                         self.speedSlider,
                         self.sizeSlider,
                         self.varianceSlider,
+                        self.peakSlider,
                         self.checkBoxSearchSimple,
                         self.spinBoxAgentsCount,
                         self.spinBoxTargetsCount,
@@ -159,6 +163,7 @@ class UI:
         self.speedSlider.valueChanged.connect(self.change_speed)
         self.sizeSlider.valueChanged.connect(self.change_size)
         self.varianceSlider.valueChanged.connect(self.update_variance)
+        self.peakSlider.valueChanged.connect(self.update_peak)
 
         self.update_variance()
         self.may_be_paused = 0
@@ -174,6 +179,7 @@ class UI:
         self.change_loc()
         self.locButton.hide()
         self.locButton.show()
+        # end of shitcoding part
 
         self.uis = [self.ui_main, self.ui_demo, self.ui_authors]
 
@@ -219,14 +225,14 @@ class UI:
         self.app.exec()
 
     def launch(self):
-        self.was_launched = 1
         self.grid = Grid(env.SCENE_RIGHT, env.SCENE_TOP, env.GRID_WIDTH, env.GRID_HEIGHT)
         self.searcher = Searcher(self.point, self.grid, self.scene, self)
         self.searcher.change_agents_count(self.spinBoxAgentsCount.value())
         self.searcher.change_targets_count(self.spinBoxTargetsCount.value())
         self.may_be_paused = 1
         self.searcher.restart()
-        self.reset_settings()
+        #self.reset_settings() ###########################
+        self.was_launched = 1
 
     def reset_settings(self):
         self.timer.start(int(env.SPEED_BASE / env.SPEED_MODIFIER))
@@ -237,6 +243,8 @@ class UI:
         self.update_plot(self.plot_entropy)
         self.update_distribution()
         self.update_distribution()
+        if self.searcher.agents > 1:
+            self.checkBoxSearchSimple.setChecked(False)
 
     def pause(self):
         if self.may_be_paused == 0:
@@ -264,6 +272,9 @@ class UI:
         y = self.point.change_distribution(x, variance=self.varianceSlider.value(), change_dist=False)
         self.update_plot(self.plot_distribution, x, y)
 
+    def update_peak(self):
+        pass
+
     def update_distribution(self):
         x = np.linspace(-20, 20, 100)
         y = self.point.change_distribution(x, variance=self.varianceSlider.value(), change_dist=True)
@@ -286,6 +297,7 @@ class UI:
         self.textSliderEntropy.setText(env.loc['entropy'][env.lang])
         self.textSliderDistribution.setText(env.loc['dist'][env.lang])
         self.textSliderVariance.setText(env.loc['variance'][env.lang])
+        self.textSliderPeak.setText(env.loc['peak'][env.lang])
         self.distributionButton.setText(env.loc['change_dist'][env.lang])
         self.checkBoxSearchSimple.setText(env.loc['1_axes_search'][env.lang])
         self.textSliderSimSpeed.setText(env.loc['sim_speed'][env.lang])
@@ -312,6 +324,7 @@ class UI:
                                self.textSliderParticlesNumber,
                                self.textSliderItemsNumber,
                                self.textSliderSize,
+                               self.textSliderPeak,
                                self.distributionButton,
                                self.checkBoxSearchSimple,
                                self.backButton,
@@ -334,7 +347,8 @@ class UI:
                                     self.textSliderSimSpeed,
                                     self.textSliderParticlesNumber,
                                     self.textSliderItemsNumber,
-                                    self.textSliderSize]
+                                    self.textSliderSize,
+                                    self.textSliderPeak]
         for item in need_to_change_alignment:
             item.setAlignment(Qt.AlignmentFlag.AlignCenter)
 

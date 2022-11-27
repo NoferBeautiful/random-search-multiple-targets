@@ -12,7 +12,7 @@ class Searcher:
         self.__found_y = False
         self.__UI = UI
         self.__searchFull = 1
-        self.__agents = 1
+        self.agents = 1
 
     def restart(self):
         self.__UI.was_launched = 1
@@ -43,9 +43,9 @@ class Searcher:
 
     def change_agents_count(self, n):
         self.__UI.real_pause()
-        self.__agents = n
+        self.agents = n
         self.__points = []
-        for i in range(self.__agents):
+        for i in range(self.agents):
             x = np.random.randint(env.SCENE_LEFT, env.SCENE_RIGHT)
             y = np.random.randint(env.SCENE_BOTTOM, env.SCENE_TOP)
             self.__points.append(Point(x, y, (env.SCENE_LEFT, env.SCENE_RIGHT),

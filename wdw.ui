@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1489</width>
-    <height>822</height>
+    <width>1536</width>
+    <height>833</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,8 +57,8 @@
    <widget class="QPushButton" name="pauseButton">
     <property name="geometry">
      <rect>
-      <x>1150</x>
-      <y>561</y>
+      <x>1160</x>
+      <y>630</y>
       <width>261</width>
       <height>71</height>
      </rect>
@@ -80,8 +80,8 @@
    <widget class="QSlider" name="speedSlider">
     <property name="geometry">
      <rect>
-      <x>1150</x>
-      <y>531</y>
+      <x>1160</x>
+      <y>600</y>
       <width>261</width>
       <height>22</height>
      </rect>
@@ -105,8 +105,8 @@
    <widget class="QTextBrowser" name="textSliderSimSpeed">
     <property name="geometry">
      <rect>
-      <x>1150</x>
-      <y>490</y>
+      <x>1160</x>
+      <y>559</y>
       <width>261</width>
       <height>31</height>
      </rect>
@@ -661,8 +661,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="locButton">
     <property name="geometry">
      <rect>
-      <x>1310</x>
-      <y>720</y>
+      <x>1290</x>
+      <y>710</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -691,8 +691,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="distributionButton">
     <property name="geometry">
      <rect>
-      <x>1180</x>
-      <y>410</y>
+      <x>1190</x>
+      <y>479</y>
       <width>221</width>
       <height>61</height>
      </rect>
@@ -723,7 +723,7 @@ p, li { white-space: pre-wrap; }
      <number>0</number>
     </property>
     <property name="maximum">
-     <number>50</number>
+     <number>75</number>
     </property>
     <property name="singleStep">
      <number>5</number>
@@ -1231,7 +1231,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="minimum">
-     <number>40</number>
+     <number>25</number>
     </property>
     <property name="maximum">
      <number>100</number>
@@ -1537,8 +1537,8 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="backButton">
     <property name="geometry">
      <rect>
-      <x>1150</x>
-      <y>720</y>
+      <x>1130</x>
+      <y>710</y>
       <width>151</width>
       <height>51</height>
      </rect>
@@ -1770,6 +1770,200 @@ p, li { white-space: pre-wrap; }
      <string>Случайный поиск с несколькими целями</string>
     </property>
    </widget>
+   <widget class="QSlider" name="peakSlider">
+    <property name="geometry">
+     <rect>
+      <x>1180</x>
+      <y>450</y>
+      <width>221</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="minimum">
+     <number>0</number>
+    </property>
+    <property name="maximum">
+     <number>50</number>
+    </property>
+    <property name="singleStep">
+     <number>5</number>
+    </property>
+    <property name="pageStep">
+     <number>5</number>
+    </property>
+    <property name="sliderPosition">
+     <number>0</number>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <property name="tickPosition">
+     <enum>QSlider::NoTicks</enum>
+    </property>
+    <property name="tickInterval">
+     <number>0</number>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textSliderPeak">
+    <property name="geometry">
+     <rect>
+      <x>1150</x>
+      <y>410</y>
+      <width>261</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+     </font>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Sunken</enum>
+    </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;Скорость симуляции&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="textInteractionFlags">
+     <set>Qt::NoTextInteraction</set>
+    </property>
+   </widget>
    <zorder>menuButtonAuthors</zorder>
    <zorder>menuButtonTheory</zorder>
    <zorder>menuButtonDemo</zorder>
@@ -1809,6 +2003,8 @@ p, li { white-space: pre-wrap; }
    <zorder>labelMainString3</zorder>
    <zorder>labelMainString4</zorder>
    <zorder>labelMainString5</zorder>
+   <zorder>peakSlider</zorder>
+   <zorder>textSliderPeak</zorder>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
