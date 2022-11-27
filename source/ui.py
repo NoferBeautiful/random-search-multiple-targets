@@ -3,7 +3,7 @@ from PyQt6.QtCore import QTimer, Qt
 from PyQt6.QtGui import QFont
 import numpy as np
 
-from os import startfile
+# from os import startfile
 import sys
 from subprocess import call
 
@@ -24,7 +24,9 @@ class MplCanvas(FigureCanvasQTAgg):
         # fig.suptitle(env.loc[name_gr][env.lang], fontsize=8)
         super(MplCanvas, self).__init__(fig)
 
+
 from source.wdw import Ui_MainWindow
+
 
 class UI:
     def __init__(self):
@@ -269,15 +271,19 @@ class UI:
 
     def update_variance(self):
         x = np.linspace(-20, 20, 100)
-        y = self.point.change_distribution(x, variance=self.varianceSlider.value(), change_dist=False)
+        y = self.searcher.change_distribution(x, variance=self.varianceSlider.value(), change_dist=False)
         self.update_plot(self.plot_distribution, x, y)
 
     def update_peak(self):
-        pass
+        x = np.linspace(-20, 20, 100)
+        y = self.searcher.change_distribution(x, variance=self.varianceSlider.value(),
+                                              p1=self.peakSlider.value() / 100,
+                                              change_dist=False)
+        self.update_plot(self.plot_distribution, x, y)
 
     def update_distribution(self):
         x = np.linspace(-20, 20, 100)
-        y = self.point.change_distribution(x, variance=self.varianceSlider.value(), change_dist=True)
+        y = self.searcher.change_distribution(x, variance=self.varianceSlider.value(), change_dist=True)
         self.update_plot(self.plot_distribution, x, y)
 
     def change_size(self):

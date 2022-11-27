@@ -3,13 +3,13 @@ from PyQt6.QtWidgets import QGraphicsItem, QGraphicsEllipseItem
 from PyQt6.QtGui import QPen, QBrush
 from PyQt6.QtCore import Qt
 
-from sampling import DotSampler, distribution_plot
+from sampling import DotSampler
 
 
 class Point:
     def __init__(self, x, y, x_limits, y_limits, color='b', sampler=DotSampler(),
                  x_distribution="gaussian_mixture", y_distribution="gaussian_mixture",
-                 variance=0, speed=1, size=25):
+                 variance=0, speed=1, size=25, p1=1/7):
         """
         Point initialization
         :param x: x coordinate
@@ -36,12 +36,14 @@ class Point:
         self.ell = None
         self.__generated = None
         self.__is_generated = None
+        self.__p1 = p1
 
-    def restart(self, x, y, x_distribution, y_distribution, sampler_variance):
+    def restart(self, x, y, x_distribution, y_distribution, sampler_variance, p1):
         self.__point = np.array([x, y], dtype=np.float64)
         self.__sampler_variance = sampler_variance
         self.__x_distribution = x_distribution
         self.__y_distribution = y_distribution
+        self.__p1 = p1
 
     def appear(self, canvas):
         """
@@ -74,23 +76,26 @@ class Point:
             return self.__generated
         return None
 
-    def change_distribution(self, x, new_x="end", variance=0, new_pos=None, change_dist=1):
-        new_x = self.__x_distribution
+    def get_params(self):
+        return self.__x_distribution, self.__y_distribution, self.__sampler_variance, self.__p1
+
+    def change_distribution(self, x, new_x="end", variance=0, new_pos=None, change_dist=1, p1=1/7):
+        new_x_ = self.__x_distribution
+        self.__sampler_variance = variance
+        self.__p1 = p1
         if change_dist:
             if self.__x_distribution == "gaussian_mixture":
-                new_x = "exponential_mixture"
+                new_x_ = "exponential_mixture"
             else:
-                new_x = "gaussian_mixture"
+                new_x_ = "gaussian_mixture"
         new_y = self.__y_distribution
         if change_dist:
             if self.__y_distribution == "gaussian_mixture":
                 new_y = "exponential_mixture"
             else:
                 new_y = "gaussian_mixture"
-        self.change_x_distribution(new_x, variance, new_pos)
+        self.change_x_distribution(new_x_, variance, new_pos)
         self.change_y_distribution(new_y, variance, new_pos)
-        return distribution_plot(x, self.__x_distribution, variance)
-
 
     def change_x_distribution(self, new_x="end", variance=0, new_pos=None):
         if new_pos is not None:
@@ -126,9 +131,9 @@ class Point:
             self.__is_generated = False
         else:
             self.__is_generated = True
-            self.__generated = self.__sampler.sample_from(self.__x_distribution,
-                                                          self.__y_distribution,
-                                                          self.__sampler_variance)
+            self.__generated = self.__sampler.sample_from(x_distribution=self.__x_distribution,
+                                                          y_distribution=self.__y_distribution,
+                                                          variance=self.__sampler_variance, p1=self.__p1)
             self.__n_iter = max(np.max(np.ceil(np.abs(self.__generated) / self.__speed)), 1)
             self.__delta = self.__generated / self.__n_iter
             self.__i = 0
