@@ -49,7 +49,7 @@ class Grid:
 
     def get_entropy(self):
         return (self.__n_targets - self.__found_targets.sum()) * \
-               -np.log((1 + (self.__is_visited == 1).sum()) / np.prod(self.__is_visited.shape))
+               np.log((1 + (self.__is_visited == 0).sum()))
 
     def check(self, x, y, canvas):
         """
@@ -85,6 +85,10 @@ class Grid:
                 return 1, i * self.__x_delta + self.__x_delta / 2
             elif i != self.__x_target[0]:
                 return 2, j * self.__y_delta + self.__y_delta / 2
+            canvas.addRect(i * self.__x_delta,
+                           j * self.__y_delta,
+                           self.__x_delta, self.__y_delta,
+                           self.__pen_grid, self.__visited_target)
             return 3, 0
 
     def draw(self, canvas):
