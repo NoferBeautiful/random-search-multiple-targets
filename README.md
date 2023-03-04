@@ -2,7 +2,7 @@
 
 An application for modeling the process of random search by several targets in a cellular structure with the possibility of conducting experiments based on the choice of a probabilistic distribution of transitions.
 
-The application was created for the Physics Faculty of Moscow State University to be used in tests for students in order to conduct experiments and their subsequent analysis.
+The application was created for the Faculty of Physics of Moscow State University to be used in tests for students in order to conduct experiments and their subsequent analysis.
 
 ## Problem statement
 
