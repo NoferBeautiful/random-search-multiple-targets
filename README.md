@@ -14,7 +14,7 @@ PHOTO
 
 The purpose of the experiment is to measure the entropy value depending on the parameters of the experiment - first of all, the distribution of the target jump lengths and its variance, as well as the number of targets and agents.
 
-[](/images_github/im_app.jpg)
+[1](/images_github/im_app.jpg)
 
 ## Entropy calculation
 
