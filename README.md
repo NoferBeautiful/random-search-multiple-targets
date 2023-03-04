@@ -26,8 +26,6 @@ The theoretical basis suggests that a distribution with thick tails copes better
 
 Full information about theoretical basis of random search may be found [here](./source/statphys_theory.pdf) (rus).
 
-## Launching
-
 ## In biology
 
 This process occurs in biology if you take agents for predators and targets for victims. An example is the article [Scaling laws of marine predator search behaviour
