@@ -10,7 +10,7 @@ There is a group of agents and targets. Each tick, agents jump in a random direc
 
 The distribution densities are given as follows:
 
-PHOTO
+![1](/images_github/im_densities.jpg)
 
 The purpose of the experiment is to measure the entropy value depending on the parameters of the experiment - first of all, the distribution of the target jump lengths and its variance, as well as the number of targets and agents.
 
@@ -20,7 +20,7 @@ The purpose of the experiment is to measure the entropy value depending on the p
 
 The entropy in the experiment is calculated by the formula:
 
-PHOTO
+![1](/images_github/im_entropy.jpg)
 
 The theoretical basis suggests that a distribution with thick tails copes better with the task and provides a faster decrease in entropy, since it better promotes the hit of agents in areas not yet explored.
 
