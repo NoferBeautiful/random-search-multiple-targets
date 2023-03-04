@@ -6,6 +6,8 @@ The application was created for the Physics Department of Moscow State Universit
 
 The purpose of the experiment is to measure the entropy value depending on the parameters of the experiment - first of all, the distribution of the target jump lengths and its variance, as well as the number of targets and agents.
 
+### Entropy calculation
+
 The entropy in the experiment is calculated by the formula:
 
 PHOTO
