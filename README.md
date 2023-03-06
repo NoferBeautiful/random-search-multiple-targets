@@ -16,6 +16,13 @@ The purpose of the experiment is to measure the entropy value depending on the p
 
 ![1](/images_github/im_app.jpg)
 
+## Implemented features
+
+- Flexible choice of experiment environment - field size and number of agents.
+- The possibility of using multiple probability distributions for the length of agent jumps.
+- Free choice of variance and peak ratio for distributions with a convenient GUI
+- Change the simulation speed for full control over the experiments.
+
 ## Entropy calculation
 
 The entropy in the experiment is calculated by the formula:
