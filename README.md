@@ -10,7 +10,7 @@ There is a group of agents and targets. Each tick, agents jump in a random direc
 
 The distribution densities are given as follows:
 
-<img src="/images_github/im_densities.jpg" alt="drawing" width="200"/>
+<img src="/images_github/im_densities.jpg" alt="drawing" width="400"/>
 
 The purpose of the experiment is to measure the entropy value depending on the parameters of the experiment - first of all, the distribution of the target jump lengths and its variance, as well as the number of targets and agents.
 
