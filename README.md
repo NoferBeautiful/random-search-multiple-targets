@@ -31,3 +31,6 @@ Full information about theoretical basis of random search may be found [here](./
 This process occurs in biology if you take agents for predators and targets for victims. An example is the article [Scaling laws of marine predator search behaviour
 ](https://www.nature.com/articles/nature06518) from Nature journal.
 
+## Usage
+
+To download and run this model please get it from [here](https://drive.google.com/drive/folders/1BTbJeQcihBA1ofYMU3jxXIlxbmImIVxA?usp=sharing) and run "main.exe" then.
